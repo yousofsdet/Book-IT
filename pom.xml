@@ -8,11 +8,8 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<junit.version>4.12</junit.version>
-		<cucumber-jvm.version>1.2.5</cucumber-jvm.version>
 		<maven-plugin-api.version>3.3.9</maven-plugin-api.version>
 		<maven-javadoc-plugin>2.10.1</maven-javadoc-plugin>
-		<failsafe.fork.count>10</failsafe.fork.count>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -23,19 +20,19 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber-jvm.version}</version>
+			<version>1.2.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber-jvm.version}</version>
+			<version>1.2.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -59,6 +56,11 @@
 			<version>1.4.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -94,7 +96,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<forkCount>${failsafe.fork.count}</forkCount>
+					<forkCount>2</forkCount>
 					<reuseForks>false</reuseForks>
 					<argLine>-Duser.language=en</argLine>
 					<argLine>-Xmx1024m</argLine>

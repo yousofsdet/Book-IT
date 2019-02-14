@@ -122,20 +122,4 @@ public class CommonSeleniumUtils {
 		}
 
 	}
-
-	public void waitForPageLoaded() {
-		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		};
-
-		Wait<WebDriver> wait = new WebDriverWait(Driver.getDriver(),
-				Integer.parseInt(ConfigurationReader.getProperty("timeout")));
-		try {
-			wait.until(expectation);
-		} catch (Throwable error) {
-			System.out.println(error);
-		}
-	}
 }

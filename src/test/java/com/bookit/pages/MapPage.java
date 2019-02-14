@@ -47,13 +47,6 @@ public class MapPage {
 		schedule.click();
 		utils.waitForVissibilityOfElement(general);
 		general.click();
-		utils.waitForPageLoaded();
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		utils.waitForElement(generalschedulesubtitle);
 		System.out.println(generalschedulesubtitle.getText());
 		Assert.assertTrue(generalschedulesubtitle.getText().equals(lightsidetitle));
