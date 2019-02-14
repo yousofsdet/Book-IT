@@ -1,12 +1,6 @@
 package com.bookit.runners;
 
-import java.io.File;
-
-import org.junit.AfterClass;
 import org.junit.runner.RunWith;
-
-import com.bookit.utils.FileReaderManager;
-import com.cucumber.listener.Reporter;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -18,8 +12,6 @@ import cucumber.api.junit.Cucumber;
 				"html:target/html-report",
 				"json:target/cucumber1.json",
 				"junit:target/junit/junit-report.xml",
-//				"usage:target/cucumber-usage.json",
-				"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/Report.html"
 			},
 		tags = {"~@ignore",},   
 		features= {
@@ -31,8 +23,4 @@ import cucumber.api.junit.Cucumber;
 		)
 public class FunctionalRunner1 {
 	
-	@AfterClass
-	public static void writeExtentReport() {
-		Reporter.loadXMLConfig(new File(FileReaderManager.getInstance().getConfigReader().getReportConfigPath()));
-	}
 }

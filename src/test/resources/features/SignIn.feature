@@ -5,7 +5,7 @@ Scenario: 1 Login as a student to the Light Side
 	Given user is on the sign-in page 
 	Then user logs in as a student with "jhelkin7u@hao123.com" and "stantonmatus" password 
 	
-
+@ignore
 Scenario: 2 Login as a team-leader to the Light Side 
 	Given user is on the sign-in page 
 	Then user logs in as a student with following credentials 

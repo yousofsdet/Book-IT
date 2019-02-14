@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriverException;
 
 import com.bookit.utils.ConfigurationReader;
 import com.bookit.utils.Driver;
-import com.cucumber.listener.Reporter;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -18,7 +17,6 @@ public class SuiteSetupAndTearDown {
 	
 	@Before
 	public void suiteSetup(Scenario scenario) {
-		Reporter.assignAuthor("Cybertek Alpha");
 		Driver.initializeDriver();
 		Driver.getDriver().manage().window().maximize();
 		Driver.getDriver().manage().timeouts().implicitlyWait(Integer.valueOf(ConfigurationReader.getProperty("timeout")),TimeUnit.SECONDS);

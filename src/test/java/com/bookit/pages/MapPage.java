@@ -4,8 +4,11 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.bookit.utils.CommonSeleniumUtils;
+import com.bookit.utils.ConfigurationReader;
 import com.bookit.utils.Driver;
 
 public class MapPage {
@@ -13,31 +16,31 @@ public class MapPage {
 	private final String lightsidetitle = "light-side today";
 	
 	@FindBy(linkText="map")
-	public WebElement map;
+	private WebElement map;
 	
 	@FindBy(linkText="schedule")
-	public WebElement schedule;
+	private WebElement schedule;
 	
 	@FindBy(linkText="general")
-	public WebElement general;
+	private WebElement general;
 	
 	@FindBy(linkText="my")
-	public WebElement my;
+	private WebElement my;
 	
 	@FindBy(linkText="hunt")
-	public WebElement hunt;
+	private WebElement hunt;
 	
 	@FindBy(linkText="self")
-	public WebElement self;
+	private WebElement self;
 	
 	@FindBy(linkText="team")
-	public WebElement team;
+	private WebElement team;
 	
 	@FindBy(linkText="sign-out")
-	public WebElement signout;
+	private WebElement signout;
 	
 	@FindBy(css="div.hero-body h2")
-	public WebElement generalschedulesubtitle;
+	private WebElement generalschedulesubtitle;
 	
 	public MapPage() {
 		PageFactory.initElements(Driver.getDriver(), this);
@@ -47,7 +50,7 @@ public class MapPage {
 		schedule.click();
 		utils.waitForVissibilityOfElement(general);
 		general.click();
-		utils.waitForElement(generalschedulesubtitle);
+		new WebDriverWait(Driver.getDriver(), Integer.valueOf(ConfigurationReader.getProperty("timeout"))).until(ExpectedConditions.textToBePresentInElement(generalschedulesubtitle, lightsidetitle));
 		System.out.println(generalschedulesubtitle.getText());
 		Assert.assertTrue(generalschedulesubtitle.getText().equals(lightsidetitle));
 	}

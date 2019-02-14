@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -15,9 +17,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CommonSeleniumUtils {
@@ -121,5 +121,15 @@ public class CommonSeleniumUtils {
 			System.out.println(e.getMessage());
 		}
 
+	}
+
+	public void waitUntilPageLoad() {
+		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Integer.valueOf(ConfigurationReader.getProperty("timeout")));
+		wait.until((d) -> {
+			Boolean isPageLoaded = (Boolean) ((JavascriptExecutor) Driver.getDriver()).executeScript("return document.readyState").equals("complete");
+			if (!isPageLoaded)
+				System.out.println("Document is loading");
+			return isPageLoaded;
+		});
 	}
 }
