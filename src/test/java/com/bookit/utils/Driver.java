@@ -83,6 +83,17 @@ public abstract class Driver {
 						} catch (MalformedURLException e) {
 							e.printStackTrace();
 						}
+						break;
+					case "remotefirefox":
+						DesiredCapabilities firefoxcapabilities = new DesiredCapabilities().firefox();
+						try {
+							driver = new RemoteWebDriver(
+									new URL(ConfigurationReader.getProperty("huburl")),
+									firefoxcapabilities);
+						} catch (MalformedURLException e) {
+							e.printStackTrace();
+						}
+						break;
 					}
 				}
 			}
