@@ -10,17 +10,17 @@ import cucumber.api.junit.Cucumber;
 		
 		plugin={"pretty:target/cucumber-pretty.txt",
 				"html:target/html-report",
-				"json:target/cucumber.json",
+				"json:target/cucumber3.json",
 				"junit:target/junit/junit-report.xml",
 			},
 		tags = {"~@ignore",},   
 		features= {
-			"src/test/resources/features/Hunt.feature"  		
+			"src/test/resources/features/SignIn.feature"  		
 		},
         glue= {"com/bookit/stepdefinitions","com/bookit/suitesetupandteardown"},
-        //dryRun=true,
+//        dryRun=true,
         monochrome = true
 		)
-public class FunctionalRunner {
-	
+public class RegressionRunner3 {
+
 }

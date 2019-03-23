@@ -9,7 +9,7 @@ public class ConfigurationReader {
 	static {
 
 		try {
-			String path = "configuration.properties";
+			String path = System.getProperty("user.dir")+"/configuration.properties";
 			FileInputStream input = new FileInputStream(path);
 			configFile = new Properties();
 			configFile.load(input);

@@ -10,17 +10,19 @@ import cucumber.api.junit.Cucumber;
 		
 		plugin={"pretty:target/cucumber-pretty.txt",
 				"html:target/html-report",
-				"json:target/cucumber.json",
+				"json:target/smoketest.json",
 				"junit:target/junit/junit-report.xml",
+//				"usage:target/cucumber-usage.json",
 			},
 		tags = {"~@ignore",},   
-		features= {
-			"src/test/resources/features/Hunt.feature"  		
-		},
+        features= {
+        		"src/test/resources/features/SmokeTest.feature"  		
+        },
         glue= {"com/bookit/stepdefinitions","com/bookit/suitesetupandteardown"},
-        //dryRun=true,
+//        dryRun=true,
         monochrome = true
 		)
-public class FunctionalRunner {
+public class SmokeTestRunner {
+	
 	
 }

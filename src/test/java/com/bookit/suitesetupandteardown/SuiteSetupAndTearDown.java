@@ -7,6 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 
 import com.bookit.utils.ConfigurationReader;
+import com.bookit.utils.DBUtils;
 import com.bookit.utils.Driver;
 
 import cucumber.api.Scenario;
@@ -14,9 +15,11 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
 public class SuiteSetupAndTearDown {
+	DBUtils db = new DBUtils();
 	
 	@Before
 	public void suiteSetup(Scenario scenario) {
+		db.createConnection();
 		Driver.initializeDriver();
 		Driver.getDriver().manage().window().maximize();
 		Driver.getDriver().manage().timeouts().implicitlyWait(Integer.valueOf(ConfigurationReader.getProperty("timeout")),TimeUnit.SECONDS);

@@ -3,22 +3,28 @@ package com.bookit.utils;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class CommonSeleniumUtils {
 
@@ -124,12 +130,87 @@ public class CommonSeleniumUtils {
 	}
 
 	public void waitUntilPageLoad() {
-		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Integer.valueOf(ConfigurationReader.getProperty("timeout")));
+		WebDriverWait wait = new WebDriverWait(Driver.getDriver(),
+				Integer.valueOf(ConfigurationReader.getProperty("timeout")));
 		wait.until((d) -> {
-			Boolean isPageLoaded = (Boolean) ((JavascriptExecutor) Driver.getDriver()).executeScript("return document.readyState").equals("complete");
+			Boolean isPageLoaded = (Boolean) ((JavascriptExecutor) Driver.getDriver())
+					.executeScript("return document.readyState").equals("complete");
 			if (!isPageLoaded)
 				System.out.println("Document is loading");
 			return isPageLoaded;
 		});
 	}
+
+	public void waitForStaleElement(WebElement element) {
+		int y = 0;
+		while (y <= 15) {
+			try {
+				element.isDisplayed();
+				break;
+			} catch (StaleElementReferenceException st) {
+				y++;
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} catch (WebDriverException we) {
+				y++;
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
+		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeToWaitInSec);
+		return wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public WebElement waitForVisibility(By locator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
+	public WebElement waitForClickablility(WebElement element, int timeout) {
+		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+		return wait.until(ExpectedConditions.elementToBeClickable(element));
+	}
+
+	public WebElement waitForClickablility(By locator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+		return wait.until(ExpectedConditions.elementToBeClickable(locator));
+	}
+
+	public void waitForPageToLoad(long timeOutInSeconds) {
+		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		};
+		try {
+			System.out.println("Waiting for page to load...");
+			WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeOutInSeconds);
+			wait.until(expectation);
+		} catch (Throwable error) {
+			System.out.println(
+					"Timeout waiting for Page Load Request to complete after " + timeOutInSeconds + " seconds");
+		}
+	}
+	
+	public String convertDateFormat(String OriginalFormat, String TargetFormat, String Date){            
+        DateFormat original = new SimpleDateFormat(OriginalFormat, Locale.ENGLISH);
+        DateFormat target = new SimpleDateFormat(TargetFormat);
+        String formattedDate = null;
+        try {
+            Date date = original.parse(Date);
+            formattedDate = target.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formattedDate;
+    }
 }
