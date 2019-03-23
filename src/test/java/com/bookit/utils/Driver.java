@@ -3,6 +3,7 @@ package com.bookit.utils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +16,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public abstract class Driver {
+public class Driver {
 	private volatile static WebDriver driver;
 	private volatile static String browser;
 	private static String os = System.getProperty("os.name").toLowerCase();
@@ -76,9 +77,9 @@ public abstract class Driver {
 						break;
 					case "remotechrome":
 						DesiredCapabilities capabilities = new DesiredCapabilities().chrome();
+						capabilities.setPlatform(Platform.ANY);
 						try {
-							driver = new RemoteWebDriver(
-									new URL(ConfigurationReader.getProperty("huburl")),
+							driver = new RemoteWebDriver(new URL(ConfigurationReader.getProperty("huburl")),
 									capabilities);
 						} catch (MalformedURLException e) {
 							e.printStackTrace();
@@ -86,9 +87,9 @@ public abstract class Driver {
 						break;
 					case "remotefirefox":
 						DesiredCapabilities firefoxcapabilities = new DesiredCapabilities().firefox();
+						firefoxcapabilities.setPlatform(Platform.ANY);
 						try {
-							driver = new RemoteWebDriver(
-									new URL(ConfigurationReader.getProperty("huburl")),
+							driver = new RemoteWebDriver(new URL(ConfigurationReader.getProperty("huburl")),
 									firefoxcapabilities);
 						} catch (MalformedURLException e) {
 							e.printStackTrace();
