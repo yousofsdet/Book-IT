@@ -15,7 +15,7 @@ import cucumber.api.junit.Cucumber;
 			},
 		tags = {"~@ignore",},   
 		features= {
-			"src/test/resources/features/SignIn.feature"  		
+			"src/test/resources/features/signin"  		
 		},
         glue= {"com/bookit/stepdefinitions","com/bookit/suitesetupandteardown"},
 //        dryRun=true,

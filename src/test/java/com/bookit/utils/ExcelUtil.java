@@ -71,7 +71,7 @@ public class ExcelUtil {
 			Map<String, String> rowMap = new HashMap<String, String>();
 			for (Cell cell : row) {
 				int columnIndex = cell.getColumnIndex();
-				rowMap.put(columns.get(columnIndex), cell.toString());
+				rowMap.put(columns.get(columnIndex), cell.getCellStyle().toString());
 			}
 
 			data.add(rowMap);

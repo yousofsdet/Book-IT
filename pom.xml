@@ -206,7 +206,7 @@
 							<testFailureIgnore>true</testFailureIgnore>
 							<skipTests>false</skipTests>
 							<includes>
-								<include>**/RegressionRunner.java</include>
+								<include>**/RegressionRunner*.java</include>
 							</includes>
 						</configuration>
 					</plugin>

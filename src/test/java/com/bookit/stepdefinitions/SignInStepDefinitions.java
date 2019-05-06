@@ -26,7 +26,10 @@ public class SignInStepDefinitions {
 	public void user_logs_in_as_a_student_with_following_credentials(List<Map<String, String>> records)
 			throws Throwable {
 		for (Map<String, String> record : records) {
-			signin.login(record.get("email"), record.get("password"));
+//			signin.login(record.get("email"), record.get("password"));
+			for(Map.Entry<String, String> map: record.entrySet()) {
+				
+			}
 		}
 	}
 

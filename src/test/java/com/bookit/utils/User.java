@@ -1,5 +1,7 @@
 package com.bookit.utils;
 
+import org.junit.Assert;
+
 public class User {
 	private String firstName;
 	private String lastName;
@@ -69,6 +71,10 @@ public class User {
 	public String toString() {
 		return "main.java.app.Student{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
 				+ ", email='" + email + '\'' + ", team='" + team + '\'' + ", role='" + role + '\'' + '}';
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 
 }
